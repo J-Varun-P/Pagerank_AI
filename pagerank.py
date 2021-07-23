@@ -152,6 +152,25 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
+    x1 = {}
+    z = []
+    for x in corpus:
+        x1[x] = 1 / len(corpus)
+        z.append(x)
+    check = 1
+    while check == 1:
+        check = 0
+        for x in z:
+            temp1 = ( 1 - damping_factor ) / len(corpus)
+            for y in z:
+                if x in corpus[y]:
+                    temp1 = temp1 + (damping_factor) * x1[y] / len(corpus[y])
+            if x1[x] - temp1 >= 0.001 or temp1 - x1[x] >= 0.001:
+                check = 1
+            x1[x] = temp1
+    for x in corpus:
+        print(x,len(corpus[x]))
+    return x1
     #raise NotImplementedError
 
 
