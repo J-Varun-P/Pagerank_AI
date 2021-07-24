@@ -65,7 +65,6 @@ def transition_model(corpus, page, damping_factor):
     n1 = len(corpus[page])
     n2 = len(corpus)
     for i in corpus[page]:
-        print(f"In corpus page {i}")
         probability_distribution[i] = damping_factor / n1
     for i in corpus:
         if i not in probability_distribution:
@@ -85,61 +84,26 @@ def sample_pagerank(corpus, damping_factor, n):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    print("-------corpus-------")
-    print("\n\n")
-    print(corpus)
-    print("\n\n")
-    print("-------corpus-------")
-    print("\n\n\n")
     corpus_page = []
     for i in corpus:
         corpus_page.append(i)
-    #print(corpus[0])
     page = corpus_page[random.randint(0,len(corpus_page)-1)]
-    print("-------corpus page-------")
-    print("\n\n")
-    print(page)
-    print("\n\n")
-    print("-------corpus page-------")
-    print("\n\n\n")
     z = {}
     for i in corpus:
         z[i] = 0
     for i in range(n):
         probability_distribution = transition_model(corpus,page,damping_factor)
-        print("-------probability distribution-------")
-        print("\n\n")
-        print(probability_distribution)
-        print("\n\n")
-        delete_me_later = 0
-        for i1 in probability_distribution:
-            delete_me_later += probability_distribution[i1]
-        print(f"The value added is {delete_me_later}")
-        print("-------probability distribution-------")
-        print("\n\n\n")
         x1 = []
         x2 = []
         for y in probability_distribution:
             x1.append(y)
         for y in x1:
             x2.append(probability_distribution[y])
-        """
-        for y in range(len(probability_distribution)):
-            x1.append(probability_distribution[y][0])
-            x2.append(probability_distribution[y][1])
-        """
         page = random.choices(x1, weights=x2)[0]
         z[page] += 1
     for i in corpus:
         z[i] /= n
-    print("-------z-------")
-    print("\n\n")
-    print(z)
-    print("\n\n")
-    print("-------z-------")
-    print("\n\n\n")
     return z
-
     #raise NotImplementedError
 
 
@@ -170,8 +134,6 @@ def iterate_pagerank(corpus, damping_factor):
             if x1[x] - temp1 >= 0.001 or temp1 - x1[x] >= 0.001:
                 check = 1
             x1[x] = temp1
-    for x in corpus:
-        print(x,len(corpus[x]))
     return x1
     #raise NotImplementedError
 
