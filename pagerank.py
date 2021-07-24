@@ -165,6 +165,8 @@ def iterate_pagerank(corpus, damping_factor):
             for y in z:
                 if x in corpus[y]:
                     temp1 = temp1 + (damping_factor) * x1[y] / len(corpus[y])
+                elif len(corpus[y]) == 0:
+                    temp1 = temp1 + ( damping_factor * x1[y] / len(corpus) )
             if x1[x] - temp1 >= 0.001 or temp1 - x1[x] >= 0.001:
                 check = 1
             x1[x] = temp1
